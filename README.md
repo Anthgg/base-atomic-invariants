@@ -96,6 +96,21 @@ python examples/run_verification.py
 
 ---
 
+## 4. Paired Fixture: Boundary AST vs Behavioral Simulation (`examples/paired_boundary_fixture.py`)
+
+To inspect the division of responsibility between static syntactic validation and dynamic behavioral simulation, run the paired fixture:
+
+```bash
+python examples/paired_boundary_fixture.py
+```
+
+### Key Takeaway:
+* **Gate 1 (AST Boundary)**: Verifies that modifiers, callback assertions, and atomic revert paths exist. Yields `PASSED`.
+* **Gate 2 (Behavioral Pre-Sim)**: Executes against Base Mainnet RPC. Under adverse slippage (-15 bps) or depleted pool depth, it triggers an off-chain revert (`REVERTED_SAFEGUARD_TRIGGERED`) before broadcast.
+* **Guarantee**: An AST pass confirms code correctness, but Gate 2 is strictly required to guarantee profitability under real-world state drift.
+
+---
+
 ## License
 
 MIT
